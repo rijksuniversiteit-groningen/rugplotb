@@ -1,7 +1,8 @@
 channels:
 - conda-forge
 
-pip:
+dependencies:
+- numpy
 - rpy2
 - ipywidgets-jsonschema
 

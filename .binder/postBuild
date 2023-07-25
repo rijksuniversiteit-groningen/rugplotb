@@ -13,3 +13,5 @@ wget -qO- \
     && chmod -R g+wx /opt/TinyTeX/bin
 
 sed -i 's/256MiB/2GiB/' /etc/ImageMagick-6/policy.xml
+
+exec "$@"

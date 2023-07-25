@@ -4,7 +4,6 @@ libfontconfig1-dev
 freetype2-demos
 libgit2-dev
 dirmngr
-libnode-dev
 libzmq3-dev
 libgmp3-dev
 libmpfr-dev
@@ -17,3 +16,5 @@ libxml2-dev
 libmagick++-dev
 libxtst6
 libxt6
+pandoc
+libssl-dev

@@ -1,2 +1,5 @@
+install.packages('tinytex')
+tinytex::install_tinytex()
+tinytex:::install_yihui_pkgs()
 devtools::install_github("rijksuniversiteit-groningen/cds-utils",subdir="rugutils")
 devtools::install_github("rijksuniversiteit-groningen/rugplot")

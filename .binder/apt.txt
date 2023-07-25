@@ -17,5 +17,3 @@ libxml2-dev
 libmagick++-dev
 libxtst6
 libxt6
-pandoc
-libssl-dev

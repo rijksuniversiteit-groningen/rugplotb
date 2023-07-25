@@ -2,4 +2,7 @@
 
 wget https://datahub.io/machine-learning/iris/r/iris.csv
 
+R -e "options( tikzDefaultEngine = 'luatex' )"
+
+
 # sed -i 's/256MiB/2GiB/' /etc/ImageMagick-6/policy.xml

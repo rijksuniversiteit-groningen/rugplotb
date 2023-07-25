@@ -1,7 +1,6 @@
 install.packages('tinytex')
 tinytex::install_tinytex()
 tinytex::install_yihui_pkgs()
-options( tikzDefaultEngine = 'luatex' )
 tinytex::tlmgr_install('luatex85')
 devtools::install_github("rijksuniversiteit-groningen/cds-utils",subdir="rugutils")
 devtools::install_github("rijksuniversiteit-groningen/rugplot")

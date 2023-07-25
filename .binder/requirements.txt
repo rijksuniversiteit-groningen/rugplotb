@@ -1,0 +1,4 @@
+pandas
+numpy
+rpy2
+ipywidgets-jsonschema

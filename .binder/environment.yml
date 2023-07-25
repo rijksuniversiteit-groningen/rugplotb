@@ -1,0 +1,10 @@
+channels:
+- conda-forge
+
+dependencies:
+- build-essential
+
+pip:
+- rpy2
+- ipywidgets-jsonschema
+

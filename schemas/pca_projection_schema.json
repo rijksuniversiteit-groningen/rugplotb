@@ -1,0 +1,215 @@
+{
+  "type":"object",
+  "properties": {
+    "description": {
+      "title": "Description",
+      "description": "Description of the template",
+      "type": "string",
+      "default": "Parameters for a PCA projection using the 'rugplot' R package"
+    },
+    "filename": {
+      "title": "Filename",
+      "description": "Csv file including more than 3 columns",
+      "type": "string",
+      "default": "<filename path>"
+    },
+    "variables": {
+      "title": "Column names",
+      "description": "List of numeric column names to be used to apply PCA",
+      "anyOf": [
+            { "title": "Default variables",
+                "type": "null"
+            },
+            {
+              "title": "List of variables",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "$comment": "enumColumns"
+               },
+              "uniqueItems": true,
+              "minItems": 3
+            }
+          ]
+      },
+      "scale":{
+        "title": "Scale",
+        "description": "Scale variables",
+        "type": "boolean",
+        "default":true
+      },
+      "colour": {
+        "title":"colour",
+        "description": "Categorical variable to colour the projected points",
+          "anyOf": [
+            { "title": "Default color column",
+                "type": "null"
+            },
+            {
+              "title": "Column to color the points",
+              "type": "string",
+                  "$comment": "enumCols"
+            }
+        ]
+      },
+      "biplot":{
+        "title": "Biplot",
+        "description": "Display biplot (loadings)",
+        "type": "boolean",
+        "default":true
+      },
+      "labels": {
+      "title" : "Plot labels",
+      "description": "Plot labels",
+      "type": "object",
+      "properties": {
+        "title":{
+          "title": "Title",
+            "description": "Title of the plot",
+            "anyOf": [
+                { "title": "Default title",
+                    "type": "null"
+                },
+                {
+                  "title": "Title of the plot",
+                  "type": "string"
+                }
+            ]
+      },
+      "subtitle":{
+        "title": "Subtitle",
+        "description": "Subtitle of the plot",
+        "anyOf": [
+            { "title": "Default subtitle",
+                "type": "null"
+            },
+            {
+              "title": "Subtitle of the plot",
+              "type": "string"
+            }
+        ]
+      },
+      "tag":{
+        "title": "Tag",
+        "description": "typically used for labelling a subplot with a letter",
+        "anyOf": [
+            { "title": "Default tag",
+                "type": "null"
+            },
+            {
+              "title": "Tag (labelling a subplot with a letter)",
+              "type": "string"
+            }
+        ]
+      },
+      "colour": {
+        "title": "Colour label",
+        "description": "Colour label legend",
+        "anyOf": [
+            { "title": "Default colour label legend",
+                "type": "null"
+            },
+            {
+              "title": "Colour label legend",
+              "type": "string"
+            }
+        ]
+      },
+      "fill": {
+        "title": "Fill label",
+        "description": "Colour fill legend",
+          "anyOf": [
+            { "title": "Default fill color legend",
+                "type": "null"
+            },
+            {
+              "title": "Colour fill legend",
+              "type": "string"
+            }
+        ]
+      },
+      "caption":{
+        "title": "Caption",
+        "anyOf": [
+            { "title": "Default caption",
+                "type": "null"
+            },
+            {
+              "title": "Caption",
+              "type": "string"
+            }
+            ]
+          }
+          }
+      },
+    "save": {
+        "title": "Save",
+        "type": "object",
+        "properties" : {
+          "save": {
+            "title": "Save file?",
+            "type": "boolean",
+            "default": false
+          },
+          "outputfilename": {
+          "title": "Output filename",
+          "description": "Filename including path (optional)",
+          "anyOf": [
+                { 
+                "title": "Default output filename",
+                "type": "null"        
+                },
+                {
+                  "title": "Output filename",
+                  "type": "string"
+                }
+              ]
+          },
+          "overwrite": {
+                "title": "Overwrite file?",
+                "type": "boolean",
+                "default": false
+              },
+              "width" : {
+                "title": "Width",
+                "description": "Output width in centimeters",
+                "type": "number",
+                "default":15,
+                "minimum":1,
+                "maximum":2000
+              },
+              "height":{
+                "title": "Height",
+                "description": "Output height in centimeters",
+                "type": "number",
+                "default":10,
+                "minimum":1,
+                "maximum":2000
+              },
+              "dpi":{
+                "title": "dpi",
+                "description": "Dots per inch",
+                "type": "number",
+                "default":72
+            },
+            "device": {
+                "title": "Device",
+                "description": "File format, note: 'tikz' produce a LaTeX-pdf file",
+                "type": "string",
+                "enum": [ "eps", "ps", "tex", "pdf", "jpeg", "tiff",
+                "png", "bmp", "svg", "html", "tikz"],
+                "default": "pdf"
+              },
+              "sanitize":{
+                "title": "Sanitize",
+                "description": "Should special LaTeX characters be replaced, required for 'tikz'",
+                "type": "boolean",
+                "default": true
+              }
+            },
+        "required": ["save", "overwrite", "width", "height", "dpi"]
+    }
+  },
+  "required": ["filename"]
+}
+

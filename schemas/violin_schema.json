@@ -1,0 +1,631 @@
+{
+  "title": "Violin plots",
+  "type":"object",
+  "properties": {
+    "description": {
+      "title": "Description",
+      "description": "Description of the template",
+      "type": "string",
+      "default": "Parameters to create violin plots using the 'rugplot' R package"
+    },
+    "filename": {
+      "title": "Filename",
+      "description": "File in table format, see the data.table::fread function for more details",
+      "type": "string"
+    },
+    "variables": {
+      "title": "Column/Variable names",
+      "description": "List of column names to be loaded from the datafile",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "$comment": "enumColumns"
+      },
+      "uniqueItems": true
+    },
+    "aesthetics": {
+        "title": "Aesthetics",
+        "description": "The aesthetics (must be a column in the data) that heatmap plots understand",
+        "type": "object",
+        "properties": {
+            "y_variable": {
+                "title": "Y variable (required)",
+                "description": "Variable for the vertical axis",
+                "type": "string",
+                "$comment": "enumCols"
+            },
+            "x_variable": {
+                "title": "X variable",
+                "description": "Required variable for the horizontal axis",
+                "anyOf": [
+                    { 
+                        "title": "Default x variable",
+                        "type": "string",
+                        "default": "''"
+                    },
+                    {
+                        "title": "x variable",
+                        "type": "string",
+                        "$comment": "enumCols"
+                    }
+                ]
+            },
+            "factorx": {
+                "title":"Convert x variable to factor",
+                "type" : "boolean",
+                "default" : false
+            },
+            "fill": {
+                "title": "Fill",
+                "description": "Column representing 'colour' to fill the plot",
+                "anyOf": [
+                    { 
+                        "title": "Default fill",
+                        "type": "null"
+                    },
+                    {
+                        "title": "Variable to fill",
+                        "type": "string",
+                        "$comment": "enumCols"
+                    }
+                ]
+            },
+            "alpha": {
+                "title": "Opacity",
+                "description": "Transparency level",
+	            "anyOf": [
+                    { 
+                        "title": "Default transparency",
+                        "type": "null"
+                    },
+                    {
+                        "title": "Transparency level",
+                        "type": "string",
+                        "$comment": "enumCols"
+                    }
+                ]
+        },
+            "group": {
+                "title": "Group",
+                "description": "Columns/variable name to create groups",
+                "anyOf": [
+                    { 
+                        "title": "Default group",
+                        "type": "null"
+                    },
+                    {
+                        "title": "Group by categorical column",
+                        "type": "string",
+                        "$comment": "enumCols"
+                    }
+                ]
+        },
+            "colour": {
+                "title": "Colour",
+                "description": "Line colour",
+                "anyOf": [
+                    { 
+                        "title": "Default color column",
+                        "type": "null"
+                    },
+                    {
+                        "title": "Colum to color the points",
+                        "type": "string",
+                        "$comment": "enumCols"
+                    }
+                ]
+            },
+            "size": {
+                "title": "Size",
+                "description": "Size",
+                "anyOf": [
+                    { 
+                        "title": "Default size column",
+                        "type": "null"
+                    },
+                    {
+                        "title": "Column variable for size",
+                        "type": "string",
+                        "$comment": "enumCols"
+                    }
+                ]
+            },
+            "linetype": {
+                "title": "Line type",
+                "description": "Line type",
+                "anyOf": [
+                    { 
+                        "title": "Default linetype column",
+                        "type": "null"
+                    },
+                    {
+                        "title": "Column variable for linetype",
+                        "type": "string",
+                        "$comment": "enumCols"
+                    }
+                ]
+            }
+        },
+        "required": ["x_variable", "y_variable"]
+    },
+    "position": {
+        "title": "Position",
+        "description": "Dodge or identity position",
+        "anyOf": [
+            {
+                "title": "Default position",
+                "type": "null"
+            },
+            {
+                "title": "Select position",
+                "type": "string",
+                "enum": [ "identity", "dodge", "dodge2"]
+            }
+        ]
+    },
+    "colour": {
+        "title": "Colour",
+        "description": "Line color",
+        "anyOf": [
+            { 
+                "title": "Default colour",
+                "type": "null"
+            },
+            {
+                "title": "colour",
+                "type": "string"
+            }
+        ]
+    },
+    "fill": {
+      "title": "Fill",
+      "description": "Color to fill the violin plots",
+      "anyOf": [
+            { 
+                "title": "Default color fill",
+                "type": "null"
+            },
+            {
+                "title": "Colour to fill",
+                "type": "string"
+            }
+        ]
+    },
+    "alpha": {
+        "title": "Opacity",
+        "description": "Transparency level",
+	    "anyOf": [
+            { 
+                "title": "Default transparency value",
+                "type": "null"
+            },
+            {
+                "title": "Transparency value between 0 - 1",
+                "type": "number",
+                "minimum":0.0,
+                "maximum":1.0
+            }
+        ]
+    },
+    "linetype": {
+      "title": "Line type",
+      "description": "Appearance of the line type",
+      "anyOf": [
+            {
+                "title": "Default line type",
+                "type":"null"
+            },
+            {
+                "title": "Number between 0 - 6",
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6
+            },
+            {
+                "title": "String",
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 8
+            },
+            {
+                "title": "Select type",
+                "type": "string",
+                "enum": ["solid", "dashed", "dotted", "dotdash", "longdash", "twodash"]
+            }
+        ]
+    },
+    "size":{
+      "title": "Size",
+      "description": "Size",
+        "anyOf": [
+            { 
+                "title": "Default size value",
+                "type": "null"
+            },
+            {
+                "title": "Size",
+                "type": "number"
+            }
+        ]
+    },
+    "trim":{
+      "title": "Trim",
+      "description": "If TRUE (default), trim the tails of the violins to the range of the data",
+      "anyOf": [
+            { 
+                "title": "Default trim value",
+                "type": "null"
+            },
+            {
+                "title": "Trim",
+                "type": "boolean"
+            }
+        ]
+    },
+    "scale": {
+      "title": "Scale",
+      "description": "if 'area' (default), all violins have the same area (before trimming the tails). If 'count', areas are scaled proportionally to the number of observations. If 'width', all violins have the same maximum width",
+      "anyOf": [
+            {
+                "title": "Default scale",
+                "type": "null"
+            },
+            {
+                "title": "Scale options",
+              "type": "string",
+              "enum": ["area","count", "width"]
+            }
+        ]
+    },
+    "orientation": {
+      "title": "Orientation",
+      "description": "The orientation of the layer",
+      "anyOf": [
+            {
+                "title": "Default orientation",
+                "type": "null"
+            },
+            {
+                "title": "Select orientation",
+              "type": "string",
+              "enum": ["x","y"]
+            }
+        ]
+    },
+    "facet_row":{
+      "title": "Facet row",
+      "description": "Variable to create facets in the row direction",
+      "anyOf": [
+           { "title": "Default row facet row",
+                "type": "null"
+            },
+          {
+              "title": "Column for row facets",
+              "type": "string",
+              "$comment": "enumCols"
+            }
+        ]
+    },
+    "facet_column":{
+      "title": "Facet column",
+      "description": "Variable to create facets in the column direction",
+      "anyOf": [
+            { "title": "Default facet column",
+                "type": "null"
+            },
+            {
+              "title": "Column for facets",
+              "type": "string",
+            "$comment": "enumCols"
+            }
+        ]
+    },
+    "labels": {
+        "title" : "Plot labels",
+        "description": "Plot labels",
+        "type": "object",
+        "properties": {
+        "title":{
+            "title": "Title",
+            "description": "Title of the plot",
+            "anyOf": [
+                { "title": "Default title",
+                "type": "null"
+                },
+                {
+                "title": "Title of the plot",
+                "type": "string"
+                }
+            ]
+        },
+        "subtitle":{
+            "title": "Subtitle",
+            "description": "Subtitle of the plot",
+            "anyOf": [
+                { "title": "Default subtitle",
+                    "type": "null"
+                },
+                {
+                "title": "Subtitle of the plot",
+                "type": "string"
+                }
+            ]
+        },
+        "tag":{
+            "title": "Tag",
+            "description": "typically used for labelling a subplot with a letter",
+            "anyOf": [
+                { "title": "Default tag",
+                    "type": "null"
+                },
+                {
+                "title": "Tag (labelling a subplot with a letter)",
+                "type": "string"
+                }
+            ]
+        },
+        "x": {
+            "title": "x label",
+            "description": "x label",
+            "anyOf": [
+                { "title": "Default x label",
+                "type": "null"
+                },
+                {
+                  "title": "x label",
+                "type": "string"
+                }
+            ]
+        },
+        "y": {
+            "title": "y label",
+            "description": "y label",
+                "anyOf": [
+                { "title": "Default y label",
+                    "type": "null"
+                },
+                {
+                    "title": "y label",
+                    "type": "string"
+                }
+            ]
+        },
+        "colour": {
+            "title": "Colour label",
+            "description": "Colour label legend",
+            "anyOf": [
+                { "title": "Default colour label legend",
+                    "type": "null"
+                },
+                {
+                "title": "Colour label legend",
+                "type": "string"
+                }
+            ]
+        },
+        "fill": {
+            "title": "Fill label",
+            "description": "Colour fill legend",
+            "anyOf": [
+                { "title": "Default fill color legend",
+                    "type": "null"
+                },
+                {
+                "title": "Colour fill legend",
+                "type": "string"
+                }
+            ]
+        },
+        "caption":{
+            "title": "Caption",
+            "anyOf": [
+                { "title": "Default caption",
+                    "type": "null"
+                },
+                {
+                "title": "Caption",
+                "type": "string"
+                }
+            ]
+        }
+        }
+    },
+    "color_manual":{
+      "title": "Color manual",
+      "description": "Assign categorical colors manually",
+      "type": "object",
+      "properties" : {
+        "values" : {
+          "title": "Color values",
+          "description": "Hexadecimal colors",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "breaks": {
+          "title": "Breaks",
+          "description": "Variable categories to be colored",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "labels": {
+          "title": "Labels",
+          "description": "A character vector giving labels",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "axes_scales":{
+        "title": "Position scales",
+        "description": "Position scales for discrete data",
+        "type": "object",
+        "properties": {
+            "x_discrete":{
+                "title": "Scale x discrete",
+                "description": "It is used to set values for discrete x scale aesthetics",
+                "type": "object",
+                "properties": {
+                    "labels": {
+                        "title": "x labels",
+                        "description": "A character vector giving labels. This way [\"lab = newlab\", \"lab2 = newlab2\", ...], without backslashes",
+                        "anyOf": [
+                            {
+                                "title": "Default labels",
+                                "type": "string",
+                                "default": "waiver()"
+                            },
+                            {
+                                "title": "n new x labels, labeli = newlabeli",
+                                "type": "array",
+                                "items" : {
+                                    "type": "string"
+                                }
+                            },
+                            {
+                                "title": "No labels",
+                                "type": "null"
+                            }
+                        ]
+                    }
+                }
+            },
+            "y_discrete":{
+                "title": "Scale y discrete",
+                "description": "It is used to set values for discrete x or y scale aesthetics",
+                "type": "object",
+                "properties": {
+                    "labels": {
+                        "title": "y labels",
+                        "description": "A character vector giving labels. This way [\"lab = newlab\", ...], without backslashes",
+                        "anyOf": [
+                            {
+                                "title": "Default labels",
+                                "type": "string",
+                                "default": "waiver()"
+                            },
+                            {
+                                "title": "n new y labels, labeli = newlabeli",
+                                "type": "array",
+                                "items" : {
+                                    "type": "string"
+                                }
+                            },
+                            {
+                                "title": "No labels",
+                                "type": "null"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "boxplot":{
+      "title": "Boxplot",
+      "description": "Add a boxplot",
+      "type": "object",
+      "properties": {
+	      "addboxplot": {
+	        "title": "Add boxplot",
+	        "type": "boolean",
+	        "default": false
+	      },
+        "width":{
+          "title": "Width",
+          "description": "width of the boxplot",
+          "type": "number",
+          "default":0.1
+        }
+      },
+        "required": ["addboxplot", "width"]
+    },
+	"rotxlabs": {
+    "title": "Rotate x labels",
+    "anyOf": [
+        { "title": "Default rotate x labels",
+                "type": "null"
+        },
+        {
+            "title": "Rotate x labels",
+            "type": "number",
+            "default": 0,
+            "minimum": -360,
+            "maximum": 360
+        }
+    ]
+  },
+    "save": {
+    "title": "Save",
+    "type": "object",
+    "properties" : {
+      "save": {
+        "title": "Save file?",
+        "type": "boolean",
+        "default": false
+      },
+      "outputfilename": {
+        "title": "Output filename",
+        "description": "Filename including path (optional)",
+        "anyOf": [
+            { 
+                "title": "Default output filename",
+                "type": "null"        
+            },
+            {
+                  "title": "Output filename",
+                  "type": "string"
+            }
+        ]
+      },
+      "overwrite": {
+        "title": "Overwrite file?",
+        "type": "boolean",
+        "default": false
+      },
+      "width" : {
+        "title": "Width",
+        "description": "Output width in centimeters",
+        "type": "number",
+        "default":15,
+        "minimum":1,
+        "maximum":2000
+      },
+      "height":{
+        "title": "Height",
+        "description": "Output height in centimeters",
+        "type": "number",
+        "default":10,
+        "minimum":1,
+        "maximum":2000
+      },
+      "dpi":{
+        "title": "dpi",
+        "description": "Dots per inch",
+        "type": "number",
+        "default":72
+      },
+      "device": {
+        "title": "Device",
+        "description": "File format, note: 'tikz' produce a LaTeX-pdf file",
+        "type": "string",
+        "enum": [ "eps", "ps", "tex", "pdf", "jpeg", "tiff",
+        "png", "bmp", "svg", "html","tikz"],
+        "default": "pdf"
+      },
+      "sanitize":{
+        "title": "Sanitize",
+        "description": "Should special LaTeX characters be replaced, required for 'tikz'",
+        "type": "boolean",
+        "default": true
+      }
+    }
+    }
+  },
+    "required": ["filename"]
+}

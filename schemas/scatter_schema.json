@@ -1,0 +1,582 @@
+{
+  "title": "Scatterplot",
+  "type":"object",
+  "properties": {
+    "description": {
+      "title": "Description",
+      "description": "Description of the template",
+      "type": "string",
+      "default": "Parameters to create a scatter plot using the 'rugplot' R package"
+    },
+    "filename": {
+      "title": "Filename",
+      "description": "File in table format, see the data.table::fread function for more details",
+      "type": "string"
+    },
+    "variables": {
+      "title": "Column/Variable names",
+      "description": "List of column names to be loaded from the datafile",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "$comment": "enumColumns"
+      },
+      "uniqueItems": true
+    },
+    "aesthetics": {
+      "title": "Aesthetics",
+      "description": "The aesthetics (must be a column in the data) that heatmap plots understand",
+      "type": "object",
+      "properties": {
+        "y_variable": {
+          "title": "Y variable (required)",
+          "description": "Variable for the vertical axis",
+          "type": "string",
+          "$comment": "enumCols"
+        },
+        "x_variable": {
+          "title": "X variable (required)",
+          "description": "Variable for the horizontal axis",
+          "type": "string",
+          "$comment": "enumCols"
+        },
+        "fill": {
+          "title": "Fill",
+          "description": "Column representing 'color'",
+          "anyOf": [
+                        { 
+                    "title": "Default fill",
+                  "type": "null"
+              },
+              {
+                  "title": "Variable to fill the marks",
+                  "type": "string",
+                  "$comment": "enumCols"
+              }
+          ]
+        },
+        "alpha": {
+          "title": "Opacity",
+          "description": "Transparency level",
+          "anyOf": [
+            { 
+              "title": "Default transparency",
+              "type": "null"
+            },
+            {
+              "title": "Transparency level",
+              "type": "string",
+              "$comment": "enumCols"
+            }
+        ]
+        },
+        "group": {
+          "title": "Group",
+          "description": "Columns/variable name to create groups",
+          "anyOf": [
+                { "title": "Default group",
+                "type": "null"
+                },
+                {
+                  "title": "Group by categorical column",
+                  "type": "string",
+                  "$comment": "enumCols"
+                }
+            ]
+        },
+        "shape": {
+          "title": "Shape",
+          "description": "Columns/variable name to encode shape",
+          "anyOf": [
+            { "title": "Default column for shapes",
+                "type": "null"
+            },
+            {
+              "title": "Shape by categorical column",
+              "type": "string",
+            "$comment": "enumCols"
+            }
+            ]
+        },
+        "colour": {
+          "title": "Colour",
+          "description": "Point colour",
+          "anyOf": [
+            { "title": "Default color column",
+                "type": "null"
+            },
+            {
+              "title": "Colum to color the points",
+              "type": "string",
+                  "$comment": "enumCols"
+            }
+        ]
+        },
+        "size": {
+          "title": "Size",
+          "description": "Size of the data point",
+          "anyOf": [
+            { "title": "Default size column",
+                "type": "null"
+            },
+            {
+              "title": "Column variable for size",
+              "type": "string",
+                  "$comment": "enumCols"
+            }
+            ]
+        },
+        "stroke": {
+          "title": "stroke",
+          "description": "Size of the stroke",
+          "anyOf": [
+            { "title": "Default stroke column",
+                "type": "null"
+            },
+            {
+              "title": "Stroke column",
+              "type": "string",
+                  "$comment": "enumCols"
+            }
+            ]
+        }
+      },
+      "required": ["x_variable", "y_variable"]
+    },
+    "position" : {
+      "title" : "Position",
+      "description": "Dodge or identity position",
+      "anyOf": [
+        {
+            "title": "Default position",
+          "type": "null"
+        },
+        {
+          "title": "Position",
+          "type": "string",
+          "enum": [ "identity", "dodge", "dodge2","jitter","jitterdodge","nudge","stack"]
+        }
+      ]
+    },
+    "colour": {
+      "title": "Colour",
+      "description": "Line color",
+      "anyOf": [
+            { "title": "Default colour",
+                "type": "null"
+            },
+        {
+              "title": "colour",
+              "type": "string"
+            }
+        ]
+    },
+    "fill": {
+      "title": "Fill",
+      "description": "Color to fill",
+      "anyOf": [
+            { "title": "Default color fill",
+                "type": "null"
+            },
+        {
+              "title": "Colour to fill",
+              "type": "string"
+            }
+
+        ]
+    },
+    "size":{
+      "title": "Size",
+      "description": "Size",
+      "anyOf": [
+            { "title": "Default size value",
+                "type": "null"
+            },
+            {
+              "title": "Size",
+              "type": "number"
+            }
+        ]
+    },
+    "stroke": {
+      "title": "Stroke in mm",
+      "description": "For shapes 21-24, The size of the filled part is controlled by size, the size of the stroke is controlled by stroke. The total size of the point is the sum of the two.",
+      "anyOf": [
+      { "title": "Default stroke value",
+                "type": "null"
+            },
+          {
+              "title": "Stroke in mm",
+              "type": "number"
+            }
+        ],
+      "minimum": 0
+    },
+    "shape": {
+      "title": "Shape",
+      "description": "Shape of the data points",
+      "anyOf": [
+        {
+            "title": "Default shape",
+          "type": "null"
+        },
+        {
+        "title": "Shape of the data points 1-25",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 25
+        },
+        {
+            "title": "hex",
+          "type": "string"
+        },
+        {
+            "title": "Predefined shape names",
+          "type": "string",
+          "enum": ["circle", "circle open", "circle filled", "circle cross",
+                     "circle plus", "circle small", "bullet", "square", "square open",
+                     "square filled", "square cross", "square plus", "square triangle",
+                     "diamond", "diamond open", "diamond filled", "diamond plus",
+                     "triangle", "triangle open", "triangle filled", "triangle square",
+                     "triangle down open", "triangle down filled", "plus", "cross",
+                     "asterisk"]
+        }
+      ]
+    },
+    "facet_row":{
+      "title": "Facet row",
+      "description": "Variable to create facets in horizontal direction",
+      "anyOf": [
+           { "title": "Default horizontal facet column",
+                "type": "null"
+            },
+          {
+              "title": "Column for horizontal facets",
+              "type": "string",
+              "$comment": "enumCols"
+            }
+        ]
+    },
+    "facet_column":{
+      "title": "Facet column",
+      "description": "Variable to create facets in vertical direction",
+      "anyOf": [
+            { "title": "Default vertical facet column",
+                "type": "null"
+            },
+            {
+              "title": "Column for vertical facets",
+              "type": "string",
+            "$comment": "enumCols"
+            }
+        ]
+    },
+    "alpha": {
+      "title": "Opacity",
+      "description": "Transparency level",
+    "anyOf": [
+            { "title": "Default transparency value",
+                "type": "null"
+            },
+            {
+              "title": "Transparency value between 0 - 1",
+              "type": "number",
+              "minimum":0.0,
+              "maximum":1.0
+            }
+        ]
+    },
+    "labels": {
+      "title" : "Plot labels",
+      "description": "Plot labels",
+      "type": "object",
+      "properties": {
+    "title":{
+      "title": "Title",
+        "description": "Title of the plot",
+        "anyOf": [
+            { "title": "Default title",
+                "type": "null"
+            },
+        {
+              "title": "Title of the plot",
+              "type": "string"
+            }
+        ]
+      },
+      "subtitle":{
+        "title": "Subtitle",
+        "description": "Subtitle of the plot",
+        "anyOf": [
+            { "title": "Default subtitle",
+                "type": "null"
+            },
+            {
+              "title": "Subtitle of the plot",
+              "type": "string"
+            }
+        ]
+      },
+      "tag":{
+        "title": "Tag",
+        "description": "typically used for labelling a subplot with a letter",
+        "anyOf": [
+            { "title": "Default tag",
+                "type": "null"
+            },
+            {
+              "title": "Tag (labelling a subplot with a letter)",
+              "type": "string"
+            }
+        ]
+      },
+      "x": {
+        "title": "x label",
+        "description": "x label",
+            "anyOf": [
+            { "title": "Default x label",
+                "type": "null"
+            },
+            {
+              "title": "x label",
+              "type": "string"
+            }
+        ]
+      },
+      "y": {
+        "title": "y label",
+        "description": "y label",
+            "anyOf": [
+            { "title": "Default y label",
+                "type": "null"
+            },
+            {
+              "title": "y label",
+              "type": "string"
+            }
+        ]
+      },
+      "colour": {
+        "title": "Colour label",
+        "description": "Colour label legend",
+        "anyOf": [
+            { "title": "Default colour label legend",
+                "type": "null"
+            },
+            {
+              "title": "Colour label legend",
+              "type": "string"
+            }
+        ]
+      },
+      "fill": {
+        "title": "Fill label",
+        "description": "Colour fill legend",
+          "anyOf": [
+            { "title": "Default fill color legend",
+                "type": "null"
+            },
+            {
+              "title": "Colour fill legend",
+              "type": "string"
+            }
+        ]
+      },
+      "caption":{
+        "title": "Caption",
+        "anyOf": [
+            { "title": "Default caption",
+                "type": "null"
+            },
+            {
+              "title": "Caption",
+              "type": "string"
+            }
+        ]
+      }
+      }
+    },
+    "theme": {
+      "title": "theme",
+      "description": "ggplot theme arguments",
+      "type": "object",
+      "properties": {
+        "legend": {
+          "title": "Legend",
+          "description": "Legend properties",
+          "type": "object",
+          "properties": {
+            "key":{
+              "title": "Theme, leyend Key properties",
+              "description": "Key properties",
+              "type": "object",
+              "properties": {
+                "size": {
+                  "title": "Size",
+                  "description": "Size of the key in cm",
+                  "anyOf": [
+                        { 
+                          "title": "Default size",
+                          "type": "null"
+                        },
+                        {
+                          "title": "Size of the key in cm",
+                          "type": "number",
+                          "exclusiveMinimum": 0
+                        }
+                    ]
+                },
+                "height": {
+                  "title": "Height (not used yet)",
+                  "description": "Height of the key in cm",
+                  "anyOf": [
+                        { 
+                            "title": "Default Height",
+                            "type": "null"
+                        },
+                        {
+                            "title": "Height of the key in cm",
+                            "type": "number",
+                            "exclusiveMinimum": 0
+                        }
+                    ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "color_manual":{
+      "title": "Color manual",
+      "description": "Assign categorical colors manually",
+      "type": "object",
+      "properties" : {
+        "values" : {
+          "title": "Color values",
+          "description": "Hexadecimal colors",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "breaks": {
+          "title": "Breaks",
+          "description": "Variable categories to be colored",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "labels": {
+          "title": "Labels",
+          "description": "A character vector giving labels",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "boxplot":{
+      "title": "Boxplot",
+      "description": "Add a boxplot",
+      "type": "object",
+      "properties": {
+      "addboxplot": {
+        "title": "Add boxplot",
+        "type": "boolean",
+        "default": false
+      },
+        "width":{
+          "title": "Width",
+          "description": "width of boxplot",
+          "type": "number",
+          "default":0.1
+        }
+      }
+    },
+  "rotxlabs": {
+    "title": "Rotate x labels",
+    "anyOf": [
+        { "title": "Default rotate x labels",
+                "type": "null"
+        },
+        {
+            "title": "Rotate x labels",
+            "type": "number",
+            "default": 0,
+            "minimum": -360,
+            "maximum": 360
+        }
+    ]
+  },
+    "save": {
+    "title": "Save",
+    "type": "object",
+    "properties" : {
+      "save": {
+        "title": "Save file?",
+        "type": "boolean",
+        "default": false
+      },
+      "outputfilename": {
+        "title": "Output filename",
+        "description": "Filename including path (optional)",
+        "anyOf": [
+            { 
+                "title": "Default output filename",
+                "type": "null"        
+            },
+            {
+                  "title": "Output filename",
+                  "type": "string"
+            }
+        ]
+      },
+      "overwrite": {
+        "title": "Overwrite file?",
+        "type": "boolean",
+        "default": false
+      },
+      "width" : {
+        "title": "Width",
+        "description": "Output width in centimeters",
+        "type": "number",
+        "default":15,
+        "minimum":1,
+        "maximum":2000
+      },
+      "height":{
+        "title": "Height",
+        "description": "Output height in centimeters",
+        "type": "number",
+        "default":10,
+        "minimum":1,
+        "maximum":2000
+      },
+      "dpi":{
+        "title": "dpi",
+        "description": "Dots per inch",
+        "type": "number",
+        "default":72
+      },
+      "device": {
+        "title": "Device",
+        "description": "File format, note: 'tikz' produce a LaTeX-pdf file",
+        "type": "string",
+        "enum": [ "eps", "ps", "tex", "pdf", "jpeg", "tiff",
+        "png", "bmp", "svg", "html","tikz"],
+        "default": "pdf"
+      },
+      "sanitize":{
+        "title": "Sanitize",
+        "description": "Should special LaTeX characters be replaced, required for 'tikz'",
+        "type": "boolean",
+        "default": true
+      }
+    }
+    }
+  },
+  "required": ["filename"]
+}

@@ -1,0 +1,424 @@
+{
+  "type":"object",
+  "properties": {
+    "description": {
+      "title": "Description",
+      "description": "Description of the template",
+      "type": "string",
+      "default": "Parameters to create a histogram(s) using the 'rugplot' R package"
+    },
+    "filename": {
+      "title": "Filename",
+      "description": "File in table format, see the data.table::fread function for more details",
+      "type": "string"
+    },
+    "variables": {
+      "title": "Column/Variable names",
+      "description": "List of column names to be loaded from the datafile",
+      "anyOf": [
+            { "title": "Default variables",
+                "type": "null"
+            },
+            {
+              "title": "List of variables",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "$comment": "enumColumns"
+               },
+              "uniqueItems": true,
+              "minItems": 3
+            }
+          ]
+    },
+    "aesthetics": {
+      "title": "Aesthetics",
+      "description": "The aesthetics (must be a column in the data) that heatmap plots understand",
+      "type": "object",
+      "properties": {
+        "y_variable": {
+          "title": "Y variable",
+          "description": "Variable for the vertical axis",
+            "anyOf": [
+              { 
+                  "title": "Default y variable",
+                  "type": "null"
+              },
+              {
+                  "title": "Variable for the y axis",
+                  "type": "string",
+                  "$comment": "enumCols"
+              }
+          ]
+        },
+        "x_variable": {
+          "title": "X variable (required)",
+          "description": "Variable for the horizontal axis",
+          "type": "string",
+            "$comment": "enumCols"
+        },
+        "fill": {
+          "title": "Fill",
+          "description": "Column representing 'color'",
+          "anyOf": [
+                        { 
+                    "title": "Default fill",
+                  "type": "null"
+              },
+              {
+                  "title": "Variable to fill the marks",
+                  "type": "string",
+                  "$comment": "enumCols"
+              }
+          ]
+        },
+         "alpha": {
+          "title": "Opacity",
+          "description": "Transparency level",
+          "anyOf": [
+            { 
+              "title": "Default transparency",
+              "type": "null"
+            },
+            {
+              "title": "Transparency level",
+              "type": "string",
+              "$comment": "enumCols"
+            }
+        ]
+        },
+        "group": {
+          "title": "Group",
+          "description": "Columns/variable name to create groups",
+          "anyOf": [
+                { "title": "Default group",
+                "type": "null"
+                },
+                {
+                  "title": "Group by categorical column",
+                  "type": "string",
+                  "$comment": "enumCols"
+                }
+            ]
+        },
+        "colour": {
+          "title": "Colour",
+          "description": "Point colour",
+          "anyOf": [
+            { "title": "Default color column",
+                "type": "null"
+            },
+            {
+              "title": "Colum to color the points",
+              "type": "string",
+                  "$comment": "enumCols"
+            }
+        ]
+        },
+        "size": {
+          "title": "Size",
+          "description": "Size of the data point",
+          "anyOf": [
+            { "title": "Default size column",
+                "type": "null"
+            },
+            {
+              "title": "Column variable for size",
+              "type": "string",
+                  "$comment": "enumCols"
+            }
+            ]
+        },
+        "linetype": {
+          "title": "Line type",
+          "description": "Line type",
+          "anyOf": [
+            { "title": "Default size column",
+                "type": "null"
+            },
+            {
+              "title": "Column variable for size",
+              "type": "string",
+                  "$comment": "enumCols"
+            }
+            ]
+        }
+      },
+        "required": ["x_variable"]
+    },
+    "colour": {
+      "title": "Colour",
+      "description": "Line color",
+      "anyOf": [
+            { "title": "Default colour",
+                "type": "null"
+            },
+        {
+              "title": "colour",
+              "type": "string"
+            }
+        ]
+    },
+    "fill": {
+      "title": "Fill",
+      "description": "Color to fill",
+      "anyOf": [
+            { "title": "Default color fill",
+                "type": "null"
+            },
+        {
+              "title": "Colour to fill",
+              "type": "string"
+            }
+
+        ]
+    },
+    "facet_row":{
+      "title": "Facet row",
+      "description": "Variable to create facets in horizontal direction",
+      "anyOf": [
+           { "title": "Default horizontal facet column",
+                "type": "null"
+            },
+          {
+              "title": "Column for horizontal facets",
+              "type": "string",
+              "$comment": "enumCols"
+            }
+        ]
+    },
+    "facet_column":{
+      "title": "Facet column",
+      "description": "Variable to create facets in vertical direction",
+      "anyOf": [
+            { "title": "Default vertical facet column",
+                "type": "null"
+            },
+            {
+              "title": "Column for vertical facets",
+              "type": "string",
+            "$comment": "enumCols"
+            }
+        ]
+    },
+    "bin_width":{
+      "title": "Bin width",
+      "description": "Numeric integer representing bin size",
+      "anyOf": [
+            { "title": "Default bin width",
+                "type": "null"
+            },
+            {
+              "title": "Numeric integer representing bin size",
+              "type": "number"
+            }
+        ]
+    },
+    "alpha": {
+      "title": "Opacity",
+      "description": "Transparency level",
+        "anyOf": [
+            { "title": "Default transparency value",
+                "type": "null"
+            },
+            {
+              "title": "Transparency value between 0 - 1",
+              "type": "number",
+              "minimum":0.0,
+              "maximum":1.0
+            }
+        ]
+    },
+    "labels": {
+      "title" : "Plot labels",
+      "description": "Plot labels",
+      "type": "object",
+      "properties": {
+    "title":{
+      "title": "Title",
+        "description": "Title of the plot",
+        "anyOf": [
+            { "title": "Default title",
+                "type": "null"
+            },
+        {
+              "title": "Title of the plot",
+              "type": "string"
+            }
+        ]
+      },
+      "subtitle":{
+        "title": "Subtitle",
+        "description": "Subtitle of the plot",
+        "anyOf": [
+            { "title": "Default subtitle",
+                "type": "null"
+            },
+            {
+              "title": "Subtitle of the plot",
+              "type": "string"
+            }
+        ]
+      },
+      "tag":{
+        "title": "Tag",
+        "description": "typically used for labelling a subplot with a letter",
+        "anyOf": [
+            { "title": "Default tag",
+                "type": "null"
+            },
+            {
+              "title": "Tag (labelling a subplot with a letter)",
+              "type": "string"
+            }
+        ]
+      },
+      "x": {
+        "title": "x label",
+        "description": "x label",
+            "anyOf": [
+            { "title": "Default x label",
+                "type": "null"
+            },
+            {
+              "title": "x label",
+              "type": "string"
+            }
+        ]
+      },
+      "y": {
+        "title": "y label",
+        "description": "y label",
+            "anyOf": [
+            { "title": "Default y label",
+                "type": "null"
+            },
+            {
+              "title": "y label",
+              "type": "string"
+            }
+        ]
+      },
+      "colour": {
+        "title": "Colour label",
+        "description": "Colour label legend",
+        "anyOf": [
+            { "title": "Default colour label legend",
+                "type": "null"
+            },
+            {
+              "title": "Colour label legend",
+              "type": "string"
+            }
+        ]
+      },
+      "fill": {
+        "title": "Fill label",
+        "description": "Colour fill legend",
+          "anyOf": [
+            { "title": "Default fill color legend",
+                "type": "null"
+            },
+            {
+              "title": "Colour fill legend",
+              "type": "string"
+            }
+        ]
+      },
+      "caption":{
+        "title": "Caption",
+        "anyOf": [
+            { "title": "Default caption",
+                "type": "null"
+            },
+            {
+              "title": "Caption",
+              "type": "string"
+            }
+        ]
+      }
+      }
+    },
+    "rotxlabs": {
+    "title": "Rotate x labels",
+    "anyOf": [
+        { "title": "Default rotate x labels",
+                "type": "null"
+        },
+        {
+            "title": "Rotate x labels",
+            "type": "number",
+            "default": 0,
+            "minimum": -360,
+            "maximum": 360
+        }
+    ]
+  },
+    "save": {
+    "title": "Save",
+    "type": "object",
+    "properties" : {
+      "save": {
+        "title": "Save file?",
+        "type": "boolean",
+        "default": false
+      },
+      "outputfilename": {
+        "title": "Output filename",
+        "description": "Filename including path (optional)",
+        "anyOf": [
+            { 
+                "title": "Default output filename",
+                "type": "null"        
+            },
+            {
+                  "title": "Output filename",
+                  "type": "string"
+            }
+        ]
+      },
+      "overwrite": {
+        "title": "Overwrite file?",
+        "type": "boolean",
+        "default": false
+      },
+      "width" : {
+        "title": "Width",
+        "description": "Output width in centimeters",
+        "type": "number",
+        "default":15,
+        "minimum":1,
+        "maximum":2000
+      },
+      "height":{
+        "title": "Height",
+        "description": "Output height in centimeters",
+        "type": "number",
+        "default":10,
+        "minimum":1,
+        "maximum":2000
+      },
+      "dpi":{
+        "title": "dpi",
+        "description": "Dots per inch",
+        "type": "number",
+        "default":72
+      },
+      "device": {
+        "title": "Device",
+        "description": "File format, note: 'tikz' produce a LaTeX-pdf file",
+        "type": "string",
+        "enum": [ "eps", "ps", "tex", "pdf", "jpeg", "tiff",
+        "png", "bmp", "svg", "html","tikz"],
+        "default": "pdf"
+      },
+      "sanitize":{
+        "title": "Sanitize",
+        "description": "Should special LaTeX characters be replaced, required for 'tikz'",
+        "type": "boolean",
+        "default": true
+      }
+    }
+    }
+  }
+}

@@ -10,7 +10,8 @@
     },
     "filename": {
       "title": "Filename",
-      "description": "File in table format, see the data.table::fread function for more details",
+      "description": "File in table format, see the data.table::fread function for more
+details",
       "type": "string"
     },
     "variables": {
@@ -25,7 +26,8 @@
     },
     "aesthetics": {
         "title": "Aesthetics",
-        "description": "The aesthetics (must be a column in the data) that heatmap plots understand",
+        "description": "The aesthetics (column names in the data) that geom_violin
+understand",
         "type": "object",
         "properties": {
             "y_variable": {

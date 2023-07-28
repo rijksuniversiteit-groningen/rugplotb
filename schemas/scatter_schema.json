@@ -25,7 +25,7 @@
     },
     "aesthetics": {
       "title": "Aesthetics",
-      "description": "The aesthetics (must be a column in the data) that heatmap plots understand",
+      "description": "The aesthetics (column names in the data) that geom_point understand",
       "type": "object",
       "properties": {
         "y_variable": {
